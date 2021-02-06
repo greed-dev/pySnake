@@ -35,7 +35,7 @@ white = (255,255,255)
 
 clock = pygame.time.Clock()
 
-def message(screen,msg,font, color, pos_x, pos_y):
+def message(screen, msg, font, color, pos_x, pos_y):
     msg = font.render(msg, True, color)
     screen.blit(msg, [pos_x, pos_y])
     pygame.display.update()
@@ -48,9 +48,11 @@ def generateFoodPos():
 
     return food_x, food_y
 
-def draw_snake(screen, snake_list):
+def draw_snake(screen, snake_list, snake_head):
     for block in snake_list:
         pygame.draw.rect(screen, blue, [block[0], block[1], GRID_WIDTH, GRID_HEIGHT])
+        if block == snake_head:
+            pygame.draw.rect(screen, green, [block[0], block[1], GRID_WIDTH, GRID_HEIGHT])
 
 def main():
     running = True
@@ -136,7 +138,7 @@ def main():
             game_over = True
 
         message(screen, "Your Score: "+str(length-1), pygame.font.SysFont(None, 30), white, 15, 15)
-        draw_snake(screen, snake)
+        draw_snake(screen, snake, snake_head)
         pygame.display.update()
         clock.tick(6)
 main()
